@@ -1,0 +1,31 @@
+//(!a+b)*!(!c+d)
+// handleExpression(chars, index) expression, index
+// eb = new expression.builder
+// char = chars[index]
+// eb.first = handleInput(chars, index)
+// eb.op = handleOperation(char)
+// eb.second = handleInput(chars, index)
+//
+// return eb.build, index
+
+// flow:
+// 1) handleExpression(chars, 0) ->  chars[0] == "(" ->                      eb1.first = handleExpression(chars, index+1)
+// 2) handleExpression(chars, 1) ->  chars[1] == "!" && chars[2] != "(" ->   eb2.first = () -> !bMap[chars[2]; index++
+// 2)                                chars[3] == "+" ->                      eb2.operation = OR
+// 2)                                chars[4] == "b" ->                      eb2.second = () -> bMap[chars[4]; index++; break
+// 1)                                chars[6] == "*" ->                      eb1.operation = AND
+// 2)                                chars[7] == "!" && chars[8] == "(" ->   eb1.second = !handleExpression(chars, index+2)
+// 3) handleExpression(chars, 10) -> chars[9] == "!" && chars[10] != "(" -> eb3.first = () -> !bMap[chars[10]; index++
+// 3)                                chars[11] == "+" ->                     eb3.operation = OR
+// 3)                                chars[12] == "d" ->                     eb3.second = () -> bMap[chars[12]; index++; break
+
+expression
+    FIRST expression
+        FIRST NOT a
+        OP OR
+        SECOND b
+    OP AND
+    SECOND NOT expression
+        FIRST c
+        OP OR
+        SECOND d
